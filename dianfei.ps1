@@ -1,0 +1,1 @@
+get-random -minimum 0.01 -maximum 99.99
