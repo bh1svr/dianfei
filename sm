@@ -1,0 +1,14 @@
+#!/bin/bash
+mail_file=$HOME"/.mail"
+line=$(sort $mail_file |head -n 1)
+echo $line
+read -p "Done? ([y]/n)?" done
+if [ $done ] && ([ $done = "n" ] || [ $done = "N" ])
+then
+  exit 1
+fi
+today=`date +%Y%m%d`
+sed_cmd="s/^[0-9]+/"$today"/g"
+new_line=`echo $line | sed -E $sed_cmd`
+sed_cmd="s/"$line"/"$new_line"/g"
+sed -i "$sed_cmd" $mail_file
