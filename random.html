@@ -2,8 +2,33 @@
 <head>
 </head>
 <body><center><font size=9>
-<script>
-   document.write((Math.random() * 100).toFixed(2));
-  </script></center></font>
+  <script>
+    var ran = (Math.random() * 100).toFixed(2);
+    document.write(ran);
+    function copy()
+    {
+      document.getElementById("a").value = ran;
+    }
+  </script><br/>
+  <input type="text" id="a"></input>%
+  <input type="text" id="b"></input>=
+  <label id="result"></label></br>
+  <a href="javascript:copy()">COPY</a>
+  <script>
+  var text_a = document.getElementById("a");
+  var text_b = document.getElementById("b");
+  text_a.addEventListener("blur", mod);
+  text_b.addEventListener("blur", mod);
+  function mod()
+  {
+      var a = parseInt(text_a.value);
+      var b = parseInt(text_b.value);
+      if (!isNaN(b))
+      {
+          document.getElementById("result").innerText = (a % b).toString();
+      }
+  }
+  </script>
+  </font></center>
 </body>
 </html>
