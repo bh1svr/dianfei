@@ -28,6 +28,21 @@
           document.getElementById("result").innerText = (a % b).toString();
       }
   }
+  </script><br/>
+  <input type="text" id="c"></input>+
+  <input type="text" id="d"></input>=
+  <label id="sum"></label>
+  <script>
+  var text_c = document.getElementById("c");
+  var text_d = document.getElementById("d");
+  text_c.addEventListener("blur", add);
+  text_d.addEventListener("blur", add);
+  function add()
+  {
+      var c = parseInt(text_c.value);
+      var d = parseInt(text_d.value);
+      document.getElementById("sum").innerText = (c + d).toString();
+  }
   </script>
   </font></center>
 </body>
