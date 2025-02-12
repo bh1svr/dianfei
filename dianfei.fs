@@ -1,9 +1,10 @@
 : ran
-begin
-1
-2dup 1-
-u+do 
-dup . 1+
-loop
-drop
-again ;
+   1
+   begin
+      2dup >= if
+         dup . 1 +
+      else
+         drop 1
+      then
+   again
+;
