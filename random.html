@@ -1,49 +1,163 @@
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学计算工具</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .random-number {
+            font-size: 24px;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e8f4f8;
+            border-radius: 5px;
+        }
+        .calculator {
+            margin: 25px 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .calculator h2 {
+            margin-top: 0;
+            color: #3498db;
+            font-size: 18px;
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        input[type="text"] {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 0 5px;
+            width: 80px;
+            text-align: center;
+            font-size: 16px;
+        }
+        label {
+            margin-left: 10px;
+            font-weight: bold;
+            min-width: 50px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 10px 0;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .separator {
+            height: 1px;
+            background-color: #eee;
+            margin: 25px 0;
+        }
+    </style>
 </head>
-<body><center><font size=9>
-  <script>
-    var ran = (Math.random() * 100).toFixed(2);
-    document.write(ran);
-    function copy()
-    {
-      document.getElementById("a").value = ran;
-    }
-  </script><br/>
-  <input type="text" id="a"></input>%
-  <input type="text" id="b"></input>=
-  <label id="result"></label></br>
-  <a href="javascript:copy()">COPY</a>
-  <script>
-  var text_a = document.getElementById("a");
-  var text_b = document.getElementById("b");
-  text_a.addEventListener("blur", mod);
-  text_b.addEventListener("blur", mod);
-  function mod()
-  {
-      var a = parseInt(text_a.value);
-      var b = parseInt(text_b.value);
-      if (!isNaN(b))
-      {
-          document.getElementById("result").innerText = (a % b).toString();
-      }
-  }
-  </script><br/>
-  <input type="text" id="c"></input>+
-  <input type="text" id="d"></input>=
-  <label id="sum"></label>
-  <script>
-  var text_c = document.getElementById("c");
-  var text_d = document.getElementById("d");
-  text_c.addEventListener("blur", add);
-  text_d.addEventListener("blur", add);
-  function add()
-  {
-      var c = parseInt(text_c.value);
-      var d = parseInt(text_d.value);
-      document.getElementById("sum").innerText = (c + d).toString();
-  }
-  </script>
-  </font></center>
+<body>
+    <div class="container">
+        <h1>数学计算工具</h1>
+        
+        <div class="random-number">
+            随机数: <span id="randomValue"></span>
+            <div>
+                <a href="javascript:copyRandom()" class="btn">复制随机数</a>
+            </div>
+            <input type="text" id="a" hidden>
+        </div>
+        
+        <div class="separator"></div>
+        
+        <div class="calculator">
+            <h2>取模计算器</h2>
+            <div class="input-group">
+                <input type="text" id="mod-input-1" placeholder="数值">
+                <span>%</span>
+                <input type="text" id="mod-input-2" placeholder="模数">
+                <span>=</span>
+                <label id="mod-result">0</label>
+            </div>
+        </div>
+        
+        <div class="calculator">
+            <h2>加法计算器</h2>
+            <div class="input-group">
+                <input type="text" id="add-input-1" placeholder="加数">
+                <span>+</span>
+                <input type="text" id="add-input-2" placeholder="加数">
+                <span>=</span>
+                <label id="add-result">0</label>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 生成随机数
+        var ran = (Math.random() * 100).toFixed(2);
+        document.getElementById("randomValue").textContent = ran;
+        
+        // 复制随机数
+        function copyRandom() {
+            document.getElementById("a").value = ran;
+            alert("随机数 " + ran + " 已复制!");
+        }
+        
+        // 取模计算
+        var modInput1 = document.getElementById("mod-input-1");
+        var modInput2 = document.getElementById("mod-input-2");
+        var modResult = document.getElementById("mod-result");
+        
+        modInput1.addEventListener("input", calculateMod);
+        modInput2.addEventListener("input", calculateMod);
+        
+        function calculateMod() {
+            var a = parseFloat(modInput1.value) || 0;
+            var b = parseFloat(modInput2.value) || 1;
+            modResult.textContent = (a % b);
+        }
+        
+        // 加法计算
+        var addInput1 = document.getElementById("add-input-1");
+        var addInput2 = document.getElementById("add-input-2");
+        var addResult = document.getElementById("add-result");
+        
+        addInput1.addEventListener("input", calculateAdd);
+        addInput2.addEventListener("input", calculateAdd);
+        
+        function calculateAdd() {
+            var a = parseFloat(addInput1.value) || 0;
+            var b = parseFloat(addInput2.value) || 0;
+            addResult.textContent = (a + b);
+        }
+    </script>
 </body>
 </html>
