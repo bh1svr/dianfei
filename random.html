@@ -107,6 +107,15 @@
         <div class="separator"></div>
         
         <div class="calculator">
+            <h2>N选1计算器</h2>
+            <div class="input-group">
+                <input type="text" id="select-input-1" placeholder="数值">
+                <span>选1 =</span>
+                <label id="select-result">0</label>
+            </div>
+        </div>
+
+        <div class="calculator">
             <h2>取模计算器</h2>
             <div class="input-group">
                 <input type="text" id="mod-input-1" placeholder="数值">
@@ -143,16 +152,24 @@
         var modInput1 = document.getElementById("mod-input-1");
         var modInput2 = document.getElementById("mod-input-2");
         var modResult = document.getElementById("mod-result");
-        
+        var selectInput = document.getElementById("select-input-1");
+        var selectResult = document.getElementById("select-result");
+
         modInput1.addEventListener("input", calculateMod);
         modInput2.addEventListener("input", calculateMod);
-        
+        selectInput.addEventListener("input", nSelect1);
+
         function calculateMod() {
             var a = parseFloat(modInput1.value) || 0;
             var b = parseFloat(modInput2.value) || 1;
-            modResult.textContent = (a % b);
+            modResult.textContent = (a % b).toFixed(0);
         }
         
+        function nSelect1() {
+            var n = parseFloat(selectInput.value);
+            selectResult.textContent = (n * ran / 100 + 1).toFixed(0);
+        }
+            
         // 加法计算
         var addInput1 = document.getElementById("add-input-1");
         var addInput2 = document.getElementById("add-input-2");
